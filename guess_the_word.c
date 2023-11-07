@@ -1,10 +1,8 @@
-#include <stdio.h> // standard library.
+#include <stdio.h>  // standard library.
 #include <string.h> // for string manipulation. strcpy, strlen, etc...
 #include <stdlib.h> // malloc, srand and rand.
-#include <time.h> // time
+#include <time.h>   // time
 
-// TODO:
-// add error cases. when forced close, etc.
 
 // initialize hashed_guess_word function.
 int hashed_guess_word(char *word, int word_length);
@@ -24,7 +22,7 @@ int main(void)
     // generate a random number (1 - n) based on how many elements are inside
     // of the array.
     int random_number = (rand() % size_words);
-    char *guess_word = words[random_number]; // generate random word. 
+    char *guess_word = words[random_number];    // generate random word.
     int guess_word_length = strlen(guess_word); // the length of string for
     // for the selected random word.
 
@@ -35,10 +33,10 @@ int main(void)
 
     hashed_guess_word(hashed, guess_word_length); // generate the hashed word
 
-    printf("guessed_word: %s, hashed: %s\n\n", guess_word, hashed); // debug
+    // printf("guessed_word: %s, hashed: %s\n\n", guess_word, hashed); // debug
 
     run_guess_word(guess_word, hashed);
-    
+
     return 0;
 }
 
@@ -56,41 +54,48 @@ int hashed_guess_word(char *word, int word_length) // generate hashed random wor
 
 int run_guess_word(char *guess_word, char *hash_word)
 {
-    int max = 3; // maximum number of guesses.
-    int count_guess = 0; // the number of words that user has guessed.
+    int max = 3;               // maximum number of guesses.
+    int count_guess = 0;       // the number of words that user has guessed.
     int remaining_guess = max; // the remaining guesses that the users can guess.
 
-    printf("\n=================\n\nGuess the word: %s\n\n=================\n\n", 
-        hash_word);
+    printf("==========================================");
+    printf("\n>> Mystery word: %s\n",
+           hash_word);
+    printf("\n-> You only have 3 guesses, so think carefully!\n");
+    printf("==========================================\n");
 
     do
     {
-        char user_guess[100]; // initialize string with size 100 for user's input.
+        char user_guess[100];        // initialize string with size 100 for user's input.
+        printf("Enter your answer (make sure it's in lower case!) .... "); // show messenge to enter text.
 
-        printf("Enter a word.... "); // show messenge to enter text.
-
-        scanf("%s", user_guess); // takes user input
+        if (EOF == scanf("%s", user_guess)) // takes user input
+        {
+            printf("\nExiting the program... Good bye!\n");
+            break;
+        }
 
         if (strcmp(user_guess, guess_word) == 0) // compare the user's input
-        // with the guess_word. 
+        // with the guess_word.
         {
             printf("\n#################\n!!! Correct! !!!\n#################\n"); // print the successful messenge.
-            free(hash_word); // free the allocated memory.
-            return 1; 
-        } 
-        else { // else if it is not the same then
+            free(hash_word);                                                      // free the allocated memory.
+            return 1;
+        }
+        else
+        { // else if it is not the same then
 
             printf("wrong answer!\n\n");
-            count_guess += 1; // increment the count_guess
+            count_guess += 1;     // increment the count_guess
             remaining_guess -= 1; // decrement the remaining_guess
-            printf("Remaining guesses: %d\n---------------------\n\n", 
-                remaining_guess); // print the failed messenge along with the
-                // remaining guesses that the user can guess.
+            printf("Remaining guesses: %d\n---------------------\n\n",
+                   remaining_guess); // print the failed messenge along with the
+            // remaining guesses that the user can guess.
 
             if (count_guess == max) // if count guess is equal to max
             {
                 printf("\n Game Over :( \n"); // show the failed messenge
-                return 1; 
+                return 1;
             }
         }
 
@@ -98,5 +103,3 @@ int run_guess_word(char *guess_word, char *hash_word)
 
     return 0;
 }
-
-
