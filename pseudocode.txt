@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+initialize check_guessed_word
+int check_guessed_word(char *word, char *guessed);
+
+start
+int main(void)
+    int max = 3;
+    int words[10];
+    char guess_word[];
+    int arr_length = sizeof words / sizeof words[0];
+    int random_number = rand() % length of array;
+
+    for loop i = 0; i < strlen guess_word; i++:
+        if i > 3:
+           guess_word[i] = '*';
+        end if
+    end for loop
+
+    while max != 0:
+
+        char *user_word;
+        printf("Guess the word: %s\n", guess_word);
+        scanf("Enter a word to the console.... ");
+
+        if check_guessed_word(word, guess_word) == 0:
+            printf("That's not it, try again!");
+            max -= 1;
+            printf("Guess remaining: string format integer", max);
+        end if
+
+        if check_guessed_word(word, guess_word) == 1:
+            printf
+
+        if count_guess == 3:
+            printf("game over!")
+            return 1;
+        end if
+    end while loop
+end function.
+
+start
+int check_guessed_word(char *word, char *guessed):
+    if word is equal to guessed:
+        return 1; -> true
+    end if
+    return 0; -> false
+end check_guessed_word
+
+================================================================================
+
+NOTE: 
+
+wait I still need two copies of the guess word:
+    1. modified guess word, hiding the rest of the character.
+    2. unmodified word without the asterisk.
+
+Then I'll use unmodified word to compare to the user's guessed word.
+I think I could make a second function to check whether the compared word is 
+
+if it works as intended maybe I can add an ascii art in here, not sure how :'D
