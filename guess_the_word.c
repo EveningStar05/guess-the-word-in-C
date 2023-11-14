@@ -3,11 +3,12 @@
 #include <stdlib.h> // malloc, srand and rand.
 #include <time.h>   // time
 
-// TODO:
-//     - add hints when users give the wrong answer.
-//     - figure out how to store the string literals for the hints. since C does
-//       not have objects. (Or maybe it has but I haven't look it up)
-//     - refactor code.
+// initialize struct
+typedef struct word_struct
+{
+    char *word;
+    char *hint;
+} word_struct;
 
 // initialize hashed_guess_word function.
 int hashed_guess_word(char *word, int word_length);
@@ -20,24 +21,23 @@ int main(void)
     srand(time(NULL)); // seed random number, so that everytime running the
     // execution file it will always generate a new number.
 
-    // initialize an array of string, 2d array.
-    char words[][10] = { "apple", "pear", "banana", "cherrie", "pineapple"};
-
-    char *hints[] = {
-        "A red fruit that Snow White once ate and was cursed.",
-        "A fruit which is bulbous at the bottom, and tapering to the top",
-        "A long yellow fruit, usually depicted as monkey's favorite fruit.",
-        "A small red fruit usually used as a dressing for birthday cakes like black forest.",
-        "A tropical fruit, spongebob's house."
+    // create a dictionary consisting the guess word with its hint.
+    word_struct word_dict[] = {
+        {"apple", "A red fruit that Snow White once ate and was cursed."}, 
+        {"pear", "A fruit which is bulbous at the bottom, and tapering to the top"},
+        {"banana", "A long yellow fruit, usually depicted as monkey's favorite fruit."}, 
+        {"cherrie", "A small red fruit usually used as a dressing for birthday cakes like black forest."},
+        {"pineapple", "A tropical fruit, spongebob's house."}
     };
 
-    int size_words = sizeof(words) / sizeof(words[0]); // length of the word array
+    int size_words = sizeof(word_dict) / sizeof(word_dict[0]); // length of the word array
 
     // generate a random number (1 - n) based on how many elements are inside
     // of the array.
     int random_number = (rand() % size_words);
-    char *guess_word = words[random_number];    // generate random word.
-    char *get_hint = hints[random_number];      // get the hint based on index.
+
+    char *guess_word = word_dict[random_number].word;    // generate random word.
+    char *get_hint = word_dict[random_number].hint;      // get the hint based on index.
     int guess_word_length = strlen(guess_word); // the length of string for
     // for the selected random word.
 
@@ -103,6 +103,7 @@ void run_guess_word(char *guess_word, char *hash_word, char *hint)
             // print the successful messenge.
             printf("\n#################\n!!! Correct! !!!\n#################\n"); 
             free(hash_word); // free the allocated memory.
+            break;
         }
         else
         { // else if it is not the same then
